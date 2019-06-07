@@ -1,14 +1,4 @@
-# A Blank PhoneGap App
+# A Phone Gap app called Spot the Car
 
-## Usage
 
-### PhoneGap CLI
-
-    $ phonegap create my-app --template blank
-
-### Desktop
-
-In your browser, open the file:
-
-    /www/index.html
 
