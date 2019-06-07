@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<!-- Required meta tags -->
+    <!--
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <meta name="Description" content="Spot the Car is a fun game for a long drive. Who can spot the most cars first?!">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link rel="shortcut icon" type="image/png" href="/favicon.png"/>
+	<!-- LocalDB script-->
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script type="text/javascript" src="./JS/localdb.js"></script>
+	<script type="text/javascript" src="./JS/custom.js"></script>
+
+	<title>Spot the Car</title>
+
+
+</head>
+<body>
+
+  <!--Navbar-->
+  <nav class="navbar navbar-light light-blue lighten-4">
+    <!-- Navbar brand -->
+    <!--<a class="navbar-brand" href="#">Navbar</a> -->
+    <!-- Collapse button -->
+    <button class="navbar-toggler toggler-example" type="button" data-toggle="collapse" data-target="#navbarSupportedContent1"
+      aria-controls="navbarSupportedContent1" aria-expanded="false" aria-label="Toggle navigation"><span class="dark-blue-text"><i
+          class="fas fa-bars fa-1x"></i></span></button>
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent1">
+      <!-- Links -->
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="#"   data-toggle="modal" data-target="#aboutModal" >Credits <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#"   data-toggle="modal" data-target="#exampleModal" >Reset games <span class="sr-only">(current)</span></a>
+        </li>
+      </ul>
+      <!-- Links -->
+    </div>
+    <!-- Collapsible content -->
+  </nav>
+  <!--/.Navbar-->
+
+
+	<div class="jumbotron">
+    <div class="container text-center">
+		    <h2>Spot the car <img src="./images/icons8-fiat-500-100.png"></h2>
+
+    </div>
+	</div>
+<!--/*
+*Game List Page
+*/-->
+  <div id="gameListPage" class="collapse show col">
+	  <div id="gameList">	</div>
+	  <script>getGameList();</script>
+
+    <div>
+  		<button type="button" class="btn btn-secondary btn-lg btn-block" onclick="showNewGamePage();" id="newGameBtn">New Game</button>
+  	</div>
+  </div>
+  <!--/*
+  *New Game Page
+  */-->
+<form id="newGamePage" class="collapse hide col">
+  <p>Name your new game.</p>
+  <label for="NewGameNameInpt"><b>Name:</b></label>
+  <input required id="NewGameNameInpt" name='newgamenameinpt' class="form-control input input-sm"
+                 type="text" >
+  </br>
+  <label for="NewGameScoreInpt"><b>Winning Score:</b></label>
+  <input required id="NewGameScoreInpt" name='newgamescoreinpt' class="form-control input input-sm"
+                 type="text" >
+  </br>
+  <div>
+    <button type="button" class="btn btn-secondary btn-lg btn-block"  id="addGameBtn" onclick="createNewGame();">Done</button>
+  </div>
+  </br>
+  <div>
+    <button type="button" class="btn btn-secondary btn-lg btn-block" id="cancelNewGameBtn" onclick="showGameListPage();">Cancel</button>
+  </div>
+</form>
+<!--
+Game page
+-->
+<form id="gamePage" class="collapse hide col">
+  <div id="gameTitle"><h3><var id="pgametitle">name</var></h3></div>
+  </br>
+  <div id="playerList">	</div>
+  <script>getPlayerList();</script>
+
+  <div id="addPlayerDiv"> </div>
+  <script>addPlayerButton();</script>
+  </br>
+    <div>
+      <button type="button" class="btn btn-secondary btn-lg btn-block" id="backToGameListBtn" onclick="showGameListPage();">Back</button>
+    </div>
+
+</form>
+
+<!--/*
+*Add Player Page
+*/-->
+<form id="newPlayerPage" class="collapse hide col">
+<p>What is your player's name?</p>
+<label for="NewPlayerInpt"><b>Player Name:</b></label>
+<input required id="NewPlayerInpt" name='newplayerinpt' class="form-control input input-sm"
+               type="text" >
+<p></p>
+<div>
+  <button type="button" class="btn btn-secondary btn-lg btn-block"  id="addPlayerToGameBtn" onclick="addNewPlayer();">Add Player</button>
+</div>
+</br>
+<div>
+  <button type="button" class="btn btn-secondary btn-lg btn-block" id="cancelAddPlayerBtn" onclick="cancelAddPlayer();">Not Now, Thanks.</button>
+</div>
+</form>
+
+</br>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Lose all games?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Are you sure you want to delete all the games?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">NOoo!</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="dropDataBase();refreshGameList();showGameListPage();">Yes!</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="aboutModal" tabindex="-1" role="dialog" aria-labelledby="aboutModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="aboutModalLabel">Credits</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        LocalDB - <a href="https://github.com/mike183/localDB">LocalDB by mike183</a>
+        </br>
+        Car icon in jumbotron - <a href="https://icons8.com/icon/116721/fiat-500">Fiat 500 icon by Icons8</a>
+        </br>
+        <a href="https://icons8.com/icon/64531/trophy">Trophy icon by Icons8</a>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal" >Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  <!--  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+   <!-- <script type="text/javascript" src="cordova.js"></script>-->
+<!-- Disabling the service worker. Not really required now
+
+    <script>
+    if('serviceWorker' in navigator) {
+      navigator.serviceWorker
+               .register('./JS/sw.js')
+               .then(function() { console.log("Service Worker Registered"); });
+    }
+    </script>
+  -->
+</body>
+</html>
